@@ -1,6 +1,7 @@
-package main
+package Connections_test
 
 import (
+	"calculator/Connections"
 	"fmt"
 	"github.com/gorilla/websocket"
 	"github.com/stretchr/testify/assert"
@@ -12,7 +13,7 @@ import (
 
 func TestConnectionsAreEstablishedAndMessageIsRead(t *testing.T) {
 	t.Run("returns ", func(t *testing.T) {
-		s := httptest.NewServer(http.HandlerFunc(handleConnections))
+		s := httptest.NewServer(http.HandlerFunc(Connections.HandleConnections))
 		defer s.Close()
 		u := "ws" + strings.TrimPrefix(s.URL, "http")
 
@@ -34,7 +35,7 @@ func TestConnectionsAreEstablishedAndMessageIsRead(t *testing.T) {
 }
 func TestConnectionsAreEstablishedAndBroadCastedInChannel(t *testing.T) {
 	t.Run("returns ", func(t *testing.T) {
-		s := httptest.NewServer(http.HandlerFunc(handleConnections))
+		s := httptest.NewServer(http.HandlerFunc(Connections.HandleConnections))
 		defer s.Close()
 		u := "ws" + strings.TrimPrefix(s.URL, "http")
 
@@ -50,8 +51,8 @@ func TestConnectionsAreEstablishedAndBroadCastedInChannel(t *testing.T) {
 		assert.NoError(t, err)
 		assert.Equal(t, websocket.TextMessage, msgType)
 		assert.Equal(t, "hello server", message)
-		handleMessages()
-		assert.Equal(t, b, string(<-broadcast))
+		Connections.HandleMessages()
+		assert.Equal(t, b, string(<-Connections.Broadcast))
 		defer ws.Close()
 		s.Close()
 	})

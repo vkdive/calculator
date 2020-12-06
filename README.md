@@ -9,7 +9,6 @@ Run: ```dep install```
 To start the application just run the following
 
 ```
-cd ./src
 go run main.go
 ```
 
