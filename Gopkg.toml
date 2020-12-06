@@ -1,0 +1,16 @@
+# Gopkg.toml example
+# Refer to https://golang.github.io/dep/docs/Gopkg.toml.html
+# for detailed Gopkg.toml documentation.
+
+
+[[constraint]]
+  name = "github.com/gorilla/websocket"
+  version = "1.4.2"
+
+[[constraint]]
+  name = "github.com/stretchr/testify"
+  version = "1.6.1"
+
+[prune]
+  go-tests = true
+  unused-packages = true
