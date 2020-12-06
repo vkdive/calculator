@@ -46,7 +46,11 @@ window.onload = function () {
     };
 
     if (window["WebSocket"]) {
-        conn = new WebSocket("ws://" + document.location.host + "/update");
+        let wsProtocol = 'ws://';
+        if (window.location.protocol === 'https:') {
+            wsProtocol = 'wss://';
+        }
+        conn = new WebSocket(wsProtocol + document.location.host + "/update");
         conn.onclose = function (evt) {
             let item = document.createElement("div");
             item.innerHTML = "<b>Connection closed.</b>";

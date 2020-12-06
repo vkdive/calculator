@@ -4,6 +4,7 @@ import (
 	"calculator/Connections"
 	"log"
 	"net/http"
+	"os"
 )
 
 
@@ -19,8 +20,12 @@ func main() {
 	go Connections.HandleMessages()
 
 	// Start the server on localhost port 8000 and log any errors
-	log.Println("http server started on :8000")
-	err := http.ListenAndServe(":8000", nil)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8000"
+	}
+	log.Printf("http server started on :%v\n", port)
+	err := http.ListenAndServe(":" +port, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
