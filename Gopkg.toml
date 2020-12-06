@@ -16,5 +16,5 @@
   unused-packages = true
 
 [metadata.heroku]
-  root-package = "calculator"
+  root-package = "github.com/vkdive/calculator"
   ensure = "true"
